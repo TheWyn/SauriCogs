@@ -46,14 +46,14 @@ class ReactTickets(commands.Cog):
             active_indexes = []
             closed_channels = await self.config.guild(guild).closed()
             closed_indexes = []
-            for i in range(0, len(active_channels)):
+            for i in range(len(active_channels)):
                 channel = guild.get_channel(active_channels[i])
                 if not channel:
                     continue
                 if str(user_id) in channel.name:
                     await channel.delete()
                     active_indexes.append(i)
-            if len(active_indexes) > 0:
+            if active_indexes:
                 active_indexes.reverse()
                 for i in active_indexes:
                     active_channels.pop(i)
@@ -63,14 +63,14 @@ class ReactTickets(commands.Cog):
                 await self.config.guild(guild).active_users.set(active_users)
                 await self.config.guild(guild).active_msgs.set(active_msgs)
 
-            for i in range(0, len(closed_channels)):
+            for i in range(len(closed_channels)):
                 channel = guild.get_channel(closed_channels[i])
                 if not channel:
                     continue
                 if user_id in channel.name:
                     await channel.delete()
                     closed_indexes.append(i)
-            if len(closed_indexes) > 0:
+            if closed_indexes:
                 closed_indexes.reverse()
                 for i in closed_indexes:
                     closed_channels.pop(i)
