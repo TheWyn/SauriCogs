@@ -830,4 +830,4 @@ class AdvancedLock(commands.Cog):
             except ValueError:
                 role = discord.utils.get(ctx.guild.roles, name=r.strip(" "))
             role_list.append(role.id)
-        return None if len(role_list) == 0 else role_list
+        return None if not role_list else role_list
